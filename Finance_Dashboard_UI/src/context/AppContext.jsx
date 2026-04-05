@@ -38,6 +38,36 @@ export const AppProvider = ({ children }) => {
 
   const balance = totalIncome - totalExpense;
 
+  const categories = useMemo(
+    () => [...new Set(transactions.map((t) => t.category))].sort(),
+    [transactions],
+  );
+
+  const filtered = useMemo(() => {
+    let r = [...transactions];
+    if (filter.type !== "all") r = r.filter((t) => t.type === filter.type);
+    if (filter.category !== "all")
+      r = r.filter((t) => t.category === filter.category);
+    if (filter.search)
+      r = r.filter((t) =>
+        t.desc.toLowerCase().includes(filter.search.toLowerCase()),
+      );
+    r.sort((a, b) => {
+      let av = sort.field === "amount" ? +a[sort.field] : a[sort.field];
+      let bv = sort.field === "amount" ? +b[sort.field] : b[sort.field];
+      return av < bv
+        ? sort.dir === "asc"
+          ? -1
+          : 1
+        : av > bv
+          ? sort.dir === "asc"
+            ? 1
+            : -1
+          : 0;
+    });
+    return r;
+  }, [transactions, filter, sort]);
+
   const spendingByCategory = useMemo(() => {
     const map = {};
 
@@ -86,6 +116,28 @@ export const AppProvider = ({ children }) => {
     });
   }, [monthlyData]);
 
+  const addTransaction = useCallback(
+    (tx) =>
+      setTransactions((p) => [
+        ...p,
+        { ...tx, id: Date.now(), amount: parseFloat(tx.amount) },
+      ]),
+    [],
+  );
+  const updateTransaction = useCallback(
+    (tx) =>
+      setTransactions((p) =>
+        p.map((t) =>
+          t.id === tx.id ? { ...tx, amount: parseFloat(tx.amount) } : t,
+        ),
+      ),
+    [],
+  );
+  const deleteTransaction = useCallback(
+    (id) => setTransactions((p) => p.filter((t) => t.id !== id)),
+    [],
+  );
+
   const value = {
     transactions,
     setTransactions,
@@ -102,6 +154,11 @@ export const AppProvider = ({ children }) => {
     spendingByCategory,
     monthlyData,
     balanceTrend,
+    categories,
+    filtered,
+    addTransaction,
+    updateTransaction,
+    deleteTransaction,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
