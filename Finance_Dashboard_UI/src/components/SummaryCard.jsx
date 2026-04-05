@@ -14,7 +14,7 @@ const SummaryCard = ({ label, value, sub, accentColor, icon, delay }) => {
       ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
     >
       <div
-        className="absolute right-4 top-4 text-3xl opacity-[0.06]"
+        className="absolute right-4 top-4 text-3xl"
         style={{ color: accentColor }}
       >
         {icon}

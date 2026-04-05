@@ -10,6 +10,10 @@ export const AppProvider = ({ children }) => {
   const [transactions, setTransactions] = useState(transactionsData);
   const [role, setRole] = useState("viewer");
   const [activeTab, setActiveTab] = useState("dashboard");
+
+  const [showAdd, setShowAdd] = useState(false);
+  const [addForm, setAddForm] = useState({});
+
   const [filter, setFilter] = useState({
     type: "all",
     category: "all",
@@ -99,7 +103,9 @@ export const AppProvider = ({ children }) => {
       else map[key].expense += t.amount;
     });
 
-    Object.values(map).forEach(item => item.net = item.income - item.expense);
+    Object.values(map).forEach(
+      (item) => (item.net = item.income - item.expense),
+    );
 
     return Object.values(map);
   }, [transactions]);
@@ -161,6 +167,10 @@ export const AppProvider = ({ children }) => {
     addTransaction,
     updateTransaction,
     deleteTransaction,
+    setShowAdd,
+    showAdd,
+    setAddForm,
+    addForm,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

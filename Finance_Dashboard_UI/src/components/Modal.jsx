@@ -1,4 +1,5 @@
 import React from "react";
+import { ALL_CATEGORIES } from "../assets/assets";
 
 const Modal = ({
   title,
@@ -9,8 +10,8 @@ const Modal = ({
   setForm,
 }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="bg-[#131720] border border-white/10 rounded-2xl w-full max-w-md p-7 shadow-2xl">
+    <div className="fixed inset-0 z-50 min-h-screen flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div className="bg-[#131720] border border-white/10 rounded-2xl w-full max-w-md p-7 shadow-2xl my-auto">
         <h3 className="text-base font-bold text-slate-100 mb-5">{title}</h3>
         <div className="flex flex-col gap-3">
           <input

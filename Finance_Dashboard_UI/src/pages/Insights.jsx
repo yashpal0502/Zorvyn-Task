@@ -3,7 +3,16 @@ import { useAppContext } from "../context/AppContext";
 import InsightCard from "../components/InsightCard";
 import CustomTooltip from "../components/CustomTooltip";
 import { CAT_COLORS } from "../assets/assets";
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, Cell } from 'recharts';
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Bar,
+  Cell,
+} from "recharts";
 
 const Insights = () => {
   const {
@@ -76,7 +85,10 @@ const Insights = () => {
               axisLine={false}
               tickFormatter={(v) => "$" + (v / 1000).toFixed(1) + "k"}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={{ fill: "transparent" }}
+            />
             <Bar dataKey="net" name="Net" radius={[4, 4, 0, 0]}>
               {monthlyData.map((e, i) => (
                 <Cell key={i} fill={e.net >= 0 ? "#22c55e" : "#f87171"} />

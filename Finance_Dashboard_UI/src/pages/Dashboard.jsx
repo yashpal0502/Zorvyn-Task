@@ -78,7 +78,7 @@ const Dashboard = () => {
           <p className="text-xs text-slate-400 mb-3">Balance Trend</p>
 
           <ResponsiveContainer width="100%" height={200}>
-            <AreaChart data={balanceTrend || []}>
+            <AreaChart data={balanceTrend}>
               <defs>
                 <linearGradient id="colorBalance" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
@@ -88,13 +88,23 @@ const Dashboard = () => {
 
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
               <XAxis dataKey="label" stroke="#64748b" fontSize={10} />
-              <YAxis stroke="#64748b" fontSize={10} />
+              <YAxis
+                tick={{ fontSize: 10, fill: "#475569" }}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(v) => "$" + (v / 1000).toFixed(0) + "k"}
+                stroke="#64748b"
+                fontSize={10}
+              />
               <Tooltip content={<CustomTooltip />} />
 
               <Area
                 type="monotone"
                 dataKey="balance"
+                name="balance"
                 stroke="#6366f1"
+                strokeWidth={2.5}
+                dot={false}
                 fill="url(#colorBalance)"
               />
             </AreaChart>
@@ -123,6 +133,20 @@ const Dashboard = () => {
               <Tooltip content={<CustomTooltip />} />
             </PieChart>
           </ResponsiveContainer>
+          <div className="flex flex-wrap gap-x-3 gap-y-1.5 mt-3">
+            {spendingByCategory.slice(0, 6).map((c) => (
+              <div
+                key={c.name}
+                className="flex items-center gap-1.5 text-[11px] text-slate-500"
+              >
+                <span
+                  className="w-2 h-2 rounded-sm"
+                  style={{ background: CAT_COLORS[c.name] || "#888" }}
+                />
+                {c.name}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -137,13 +161,33 @@ const Dashboard = () => {
             <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
             <XAxis dataKey="label" stroke="#64748b" />
             <YAxis stroke="#64748b" />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={{ fill: "transparent" }}
+            />
 
             <Bar dataKey="income" fill="#6366f1" />
             <Bar dataKey="expense" fill="#f97316" />
           </BarChart>
         </ResponsiveContainer>
 
+        <div className="flex gap-5 mt-3">
+          {[
+            ["Income", "#6366f1"],
+            ["Expenses", "#f97316"],
+          ].map(([l, c]) => (
+            <div
+              key={l}
+              className="flex items-center gap-1.5 text-xs text-slate-500"
+            >
+              <span
+                className="w-2.5 h-2.5 rounded-sm"
+                style={{ background: c }}
+              />
+              {l}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
