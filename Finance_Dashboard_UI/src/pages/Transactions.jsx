@@ -69,7 +69,7 @@ const Transactions = () => {
       <div className="bg-[#131720] border border-white/[0.07] rounded-2xl overflow-hidden">
         {/* Header */}
         <div
-          className="grid items-center px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]"
+          className="hidden md:grid items-center px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]"
           style={{ gridTemplateColumns: cols }}
         >
           <SortHdr field="date" label="Date" />

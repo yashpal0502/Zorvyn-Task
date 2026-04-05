@@ -9,7 +9,7 @@ const tabs = [
   { id: "transactions", label: "Transactions", icon: <List size={14} /> },
   { id: "insights", label: "Insights", icon: <BarChart3 size={14} /> },
 ];
-const Navbar = ({ onAdd }) => {
+const Navbar = () => {
   const {
     role,
     setRole,
