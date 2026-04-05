@@ -24,7 +24,9 @@ const App = () => {
     <div className="min-h-screen bg-[#0c0e14] text-slate-100">
       <Navbar />
 
-      <div>{renderSection()}</div>
+      <main className="px-6 py-8 max-w-7xl mx-auto">
+        {renderSection()}
+      </main>
     </div>
   );
 };

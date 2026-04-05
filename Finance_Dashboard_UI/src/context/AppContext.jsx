@@ -99,6 +99,8 @@ export const AppProvider = ({ children }) => {
       else map[key].expense += t.amount;
     });
 
+    Object.values(map).forEach(item => item.net = item.income - item.expense);
+
     return Object.values(map);
   }, [transactions]);
 
