@@ -1,15 +1,14 @@
 import React from "react";
-import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
+import { LayoutDashboard, List, BarChart3 } from "lucide-react";
 
-const Navbar = () => {
+const tabs = [
+  { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard size={14} /> },
+  { id: "transactions", label: "Transactions", icon: <List size={14} /> },
+  { id: "insights", label: "Insights", icon: <BarChart3 size={14} /> },
+];
+const Navbar = ({ onAdd }) => {
   const { role, setRole, activeTab, setActiveTab } = useAppContext();
-
-  const tabs = [
-    { id: "dashboard", label: "Dashboard", icon: "⬡" },
-    { id: "transactions", label: "Transactions", icon: "≡" },
-    { id: "insights", label: "Insights", icon: "◎" },
-  ];
 
   return (
     <nav className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#0c0e14]/95 backdrop-blur-lg">
@@ -17,10 +16,10 @@ const Navbar = () => {
         {/* Brand */}
         <div className="flex items-center gap-2.5 shrink-0">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-xs font-black text-white">
-            F
+            Z
           </div>
           <span className="font-bold text-sm tracking-tight text-slate-100">
-            Fintrak
+            Zorvyn
           </span>
         </div>
 

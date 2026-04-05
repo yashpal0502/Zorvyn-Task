@@ -1,4 +1,4 @@
-export const SEEtransactionsData = [
+export const transactionsData = [
   {
     id: 1,
     date: "2025-03-01",
