@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { LayoutDashboard, List, BarChart3, Menu, X } from "lucide-react";
 import Modal from "./Modal";
+import { assets } from "../assets/assets";
 
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard size={14} /> },
@@ -41,12 +42,7 @@ const Navbar = ({ onAdd }) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 gap-4">
         {/* Brand */}
         <div className="flex items-center gap-2.5 shrink-0">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-xs font-black text-white">
-            Z
-          </div>
-          <span className="font-bold text-sm tracking-tight text-slate-100">
-            Zorvyn
-          </span>
+          <img src={assets.zorvyn} alt="" className="w-30" />
         </div>
 
         {/* Hamburger Menu for Mobile */}
@@ -97,16 +93,6 @@ const Navbar = ({ onAdd }) => {
               <span className="text-base leading-none">+</span> Add
             </button>
           )}
-          {showAdd && (
-            <Modal
-              title="Add Transaction"
-              onClose={() => setShowAdd(false)}
-              onSubmit={handleAdd}
-              submitLabel="Add Transaction"
-              form={addForm}
-              setForm={setAddForm}
-            />
-          )}
         </div>
       </div>
 
@@ -155,20 +141,20 @@ const Navbar = ({ onAdd }) => {
                     <span className="text-sm leading-none">+</span> Add
                   </button>
                 )}
-                {showAdd && (
-                  <Modal
-                    title="Add Transaction"
-                    onClose={() => setShowAdd(false)}
-                    onSubmit={handleAdd}
-                    submitLabel="Add Transaction"
-                    form={addForm}
-                    setForm={setAddForm}
-                  />
-                )}
               </div>
             </div>
           </div>
         </div>
+      )}
+      {showAdd && (
+        <Modal
+          title="Add Transaction"
+          onClose={() => setShowAdd(false)}
+          onSubmit={handleAdd}
+          submitLabel="Add Transaction"
+          form={addForm}
+          setForm={setAddForm}
+        />
       )}
     </nav>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { useAppContext } from "../context/AppContext";
 import TransactionRow from "../components/TransactionRow";
 
-const Transactions = ({ onEdit }) => {
+const Transactions = () => {
   const {
     filtered,
     filter,
@@ -101,7 +101,6 @@ const Transactions = ({ onEdit }) => {
               tx={tx}
               cols={cols}
               isAdmin={isAdmin}
-              onEdit={onEdit}
               onDelete={deleteTransaction}
             />
           ))

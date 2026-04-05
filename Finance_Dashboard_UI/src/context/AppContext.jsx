@@ -14,6 +14,9 @@ export const AppProvider = ({ children }) => {
   const [showAdd, setShowAdd] = useState(false);
   const [addForm, setAddForm] = useState({});
 
+  const [editTx, setEditTx] = useState(null);
+  const [editForm, setEditForm] = useState({});
+
   const [filter, setFilter] = useState({
     type: "all",
     category: "all",
@@ -111,18 +114,14 @@ export const AppProvider = ({ children }) => {
   }, [transactions]);
 
   const balanceTrend = useMemo(() => {
-    let cumulativeIncome = 0;
-    let cumulativeExpense = 0;
-
-    return monthlyData.map((item) => {
-      cumulativeIncome += item.income;
-      cumulativeExpense += item.expense;
-      return {
-        ...item,
-        balance: cumulativeIncome - cumulativeExpense,
-      };
-    });
-  }, [monthlyData]);
+    let running = 0;
+    return [...transactions]
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map((t) => {
+        running += t.type === "income" ? t.amount : -t.amount;
+        return { date: t.date.slice(5), balance: running };
+      });
+  }, [transactions]);
 
   const addTransaction = useCallback(
     (tx) =>
@@ -171,6 +170,10 @@ export const AppProvider = ({ children }) => {
     showAdd,
     setAddForm,
     addForm,
+    editTx,
+    setEditTx,
+    editForm,
+    setEditForm,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

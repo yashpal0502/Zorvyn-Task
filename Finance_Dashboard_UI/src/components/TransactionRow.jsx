@@ -1,7 +1,23 @@
 import React from "react";
 import Badge from "./Badge";
+import { useAppContext } from "../context/AppContext";
+import Modal from "./Modal";
 
-const TransactionRow = ({ tx, onEdit, onDelete, isAdmin, cols }) => {
+const TransactionRow = ({ tx, onDelete, isAdmin, cols }) => {
+  const { editTx, setEditTx, editForm, setEditForm, updateTransaction } =
+    useAppContext();
+
+  const openEdit = (tx) => {
+    setEditTx(tx);
+    setEditForm({ ...tx });
+  };
+
+  const handleSaveEdit = () => {
+    if (!editForm.date || !editForm.desc || !editForm.amount) return;
+    updateTransaction(editForm);
+    setEditTx(null);
+  };
+
   const fmtDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
       month: "short",
@@ -42,7 +58,7 @@ const TransactionRow = ({ tx, onEdit, onDelete, isAdmin, cols }) => {
       {isAdmin && (
         <div className="flex gap-2 justify-end">
           <button
-            onClick={() => onEdit(tx)}
+            onClick={() => openEdit(tx)}
             className="text-[11px] px-2.5 py-1 rounded-lg border border-white/10 text-slate-400 hover:text-slate-200 hover:border-white/20 transition-colors"
           >
             Edit
@@ -54,6 +70,17 @@ const TransactionRow = ({ tx, onEdit, onDelete, isAdmin, cols }) => {
             Del
           </button>
         </div>
+      )}
+
+      {editTx?.id === tx.id && (
+        <Modal
+          title="Edit Transaction"
+          onClose={() => setEditTx(null)}
+          onSubmit={handleSaveEdit}
+          submitLabel="Save Changes"
+          form={editForm}
+          setForm={setEditForm}
+        />
       )}
     </div>
   );

@@ -1,3 +1,9 @@
+import zorvyn from "./zorvyn.png";
+
+export const assets = {
+  zorvyn,
+};
+
 export const transactionsData = [
   {
     id: 1,

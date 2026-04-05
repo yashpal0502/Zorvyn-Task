@@ -2,7 +2,6 @@ import React from "react";
 import { useAppContext } from "../context/AppContext";
 import SummaryCard from "../components/SummaryCard";
 import CustomTooltip from "../components/CustomTooltip";
-import Badge from "../components/Badge";
 
 import {
   AreaChart,
@@ -85,9 +84,14 @@ const Dashboard = () => {
                   <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                 </linearGradient>
               </defs>
-
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
-              <XAxis dataKey="label" stroke="#64748b" fontSize={10} />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 10, fill: "#475569" }}
+                tickLine={false}
+                axisLine={false}
+                interval={4}
+              />
               <YAxis
                 tick={{ fontSize: 10, fill: "#475569" }}
                 tickLine={false}
@@ -97,7 +101,6 @@ const Dashboard = () => {
                 fontSize={10}
               />
               <Tooltip content={<CustomTooltip />} />
-
               <Area
                 type="monotone"
                 dataKey="balance"
